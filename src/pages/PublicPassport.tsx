@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { Frame, Smartphone } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import type { PassportRow } from '../lib/types'
 import PassportView from '../components/PassportView'
@@ -38,6 +39,10 @@ export default function PublicPassport() {
         <Link to="/register" className="btn-primary">สร้าง Passport ของคุณ</Link>
       </header>
       <main className="mx-auto max-w-6xl px-3 pb-16 sm:px-4">
+        <div className="no-print mb-3 flex flex-wrap justify-end gap-2">
+          <Link to={`/p/${slug}/social`} className="btn-outline"><Smartphone size={16} /> การ์ดโซเชียล</Link>
+          <Link to={`/p/${slug}/frame`} className="btn-outline"><Frame size={16} /> กรอบรูป</Link>
+        </div>
         <PassportView data={row.data} />
       </main>
     </div>

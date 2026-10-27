@@ -8,6 +8,8 @@ import AuthPage from './pages/AuthPage'
 import Dashboard from './pages/Dashboard'
 import TripPage from './pages/TripPage'
 import PublicPassport from './pages/PublicPassport'
+import SocialCards from './pages/SocialCards'
+import FrameStudio from './pages/FrameStudio'
 import ResetPassword from './pages/ResetPassword'
 import JoinPage, { PENDING_JOIN_KEY } from './pages/JoinPage'
 
@@ -44,6 +46,9 @@ export default function App() {
           <Route path="/reset-password" element={<Private><ResetPassword /></Private>} />
           <Route path="/join/:code" element={<JoinPage />} />
           <Route path="/p/:slug" element={<PublicPassport />} />
+          {/* output 2 แบบจาก Passport: การ์ดโซเชียล + กรอบรูป (เจ้าของเปิดได้เสมอ คนอื่นเปิดได้เมื่อแชร์สาธารณะ) */}
+          <Route path="/p/:slug/social" element={<SocialCards />} />
+          <Route path="/p/:slug/frame" element={<FrameStudio />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </HashRouter>

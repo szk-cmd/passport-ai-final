@@ -17,6 +17,9 @@
 | **💰 ค่าใช้จ่าย** | สรุปรายหมวด รายวัน เทียบงบ แก้ไข/ลบ/เพิ่มเอง และ Export CSV |
 | **🛂 Passport** | กดปุ่มเดียว → Agent 5 ตัวทำงาน → ได้หน้า Passport (ปก, Day cards, แผนที่เส้นทาง + ฟิลเตอร์รายวัน, ตราประทับเมือง, เรื่องเล่า, รูปไฮไลต์ + แคปชัน AI, Travel Intelligence) แชร์ลิงก์สาธารณะ หรือพิมพ์เป็น PDF |
 
+| **📱 การ์ดโซเชียล** | จากหน้า Passport กด “การ์ดโซเชียล” → การ์ดสไตล์ Strava 3 แบบ (Story 1080×1920, Post 1080×1080, พื้นโปร่งใส) ใช้รูปไฮไลต์และแผนที่ชุดเดียวกับ Passport ดาวน์โหลดเป็น PNG ได้ |
+| **🖼️ กรอบรูป** | กด “กรอบรูป” → เลือกแบบ (คลาสสิก / โพลารอยด์ / พาสปอร์ต / มินิมอล) เลือกรูป เปิด/ปิดข้อมูล (วันที่ ข้อความ คำบรรยาย สถิติ ตราประทับ แผนที่ QR) แก้ข้อความ → เลือกขนาด/สีกรอบ (สั่งพิมพ์ยังไม่เปิด) หรือพิมพ์ A4 / บันทึก PDF เอง ตัวอักษรใหญ่สำหรับผู้สูงอายุ |
+
 ### Agent ทั้ง 5 (ตามสไลด์นำเสนอ)
 
 | Agent | ทำงานที่ | รายละเอียด |
@@ -60,7 +63,7 @@ legacy/                     Streamlit app_v022.py เวอร์ชันเด
 
 ### 2) GitHub Pages
 1. Repo → **Settings → Pages** → Source: **GitHub Actions**
-2. **Settings → Secrets and variables → Actions → Variables** เพิ่ม
+2. **Settings → Secrets and variables → Actions → Variables** เพิ่ม (ถ้าไม่ตั้ง จะใช้ค่าใน `.env.production`)
    - `VITE_SUPABASE_URL` = Project URL
    - `VITE_SUPABASE_ANON_KEY` = Publishable (anon) key
 3. Push เข้า `main` → เว็บจะขึ้นที่ `https://<username>.github.io/passport-ai/`

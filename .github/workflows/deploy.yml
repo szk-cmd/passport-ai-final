@@ -24,9 +24,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run build
+      # ค่า Supabase: ถ้าตั้ง Repository variables (VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY) ไว้ จะใช้ค่านั้นแทน .env.production
+      # (fork ไปต่อ Supabase ของตัวเองได้โดยไม่ต้องแก้โค้ด)
+      - run: |
+          if [ -n "$SB_URL" ]; then export VITE_SUPABASE_URL="$SB_URL"; fi
+          if [ -n "$SB_KEY" ]; then export VITE_SUPABASE_ANON_KEY="$SB_KEY"; fi
+          npm run build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          SB_URL: ${{ vars.VITE_SUPABASE_URL }}
+          SB_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

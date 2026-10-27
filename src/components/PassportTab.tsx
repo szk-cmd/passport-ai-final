@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Check, Copy, Globe, Lock, Printer, RefreshCw, Sparkles } from 'lucide-react'
+import { Check, Copy, Frame, Globe, Lock, Printer, RefreshCw, Smartphone, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { buildPassport, savePassport } from '../lib/pipeline'
 import { supabase } from '../lib/supabase'
@@ -94,6 +95,9 @@ export default function PassportTab({ trip, photos, expenses, messages, document
           </button>
         )}
         <div className="flex-1" />
+        {/* output เพิ่มเติม: การ์ดโซเชียล + กรอบรูป ใช้รูปไฮไลต์และแผนที่ชุดเดียวกับ Passport */}
+        <Link to={`/p/${passport.share_slug}/social`} className="btn-outline"><Smartphone size={16} /> การ์ดโซเชียล</Link>
+        <Link to={`/p/${passport.share_slug}/frame`} className="btn-outline"><Frame size={16} /> กรอบรูป</Link>
         <button className="btn-outline" onClick={() => window.print()}><Printer size={16} /> พิมพ์ / PDF</button>
         <button className="btn-dark" onClick={() => confirm('สร้าง Passport ใหม่จากข้อมูลล่าสุด? (เนื้อหาเดิมจะถูกแทนที่)') && generate()}><RefreshCw size={16} /> สร้างใหม่</button>
       </div>
