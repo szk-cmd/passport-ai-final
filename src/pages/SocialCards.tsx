@@ -115,18 +115,22 @@ function Stats({ d, size = 1 }: { d: OutputData; size?: number }) {
 // 1080×1920: รูปไฮไลต์เต็มจอ + แผนที่ + ชื่อทริป + สถิติ
 export function StoryCard({ d }: { d: OutputData }) {
   const photo = d.photos[0]
+  // ไม่ใส่ฟิล์มทับรูป ให้เห็นรูปเต็มใบ ตัวหนังสือใช้เงาแทนเพื่อให้อ่านออกบนรูปทุกแบบ
+  const shadow = { textShadow: '0 2px 14px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.6)' }
   return (
     <div className="relative h-full w-full text-white" style={{ background: d.theme.primary }}>
       {photo && <img src={photo.url} alt="" crossOrigin="anonymous" className="absolute inset-0 h-full w-full object-cover" />}
-      <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, transparent 20%, ${d.theme.primary}cc 60%, ${d.theme.primary} 100%)` }} />
-      <div className="absolute inset-0 flex flex-col justify-between p-[88px]">
-        <Brand color={d.theme.accent} />
+      <div className="absolute inset-0 flex flex-col justify-between p-[72px]" style={shadow}>
+        <div className="flex items-start justify-between gap-8">
+          <Brand size={32} color={d.theme.accent} />
+          {/* แผนที่เล็กมุมขวาบน บังรูปให้น้อยที่สุด */}
+          {d.pins.length > 0 && <OutputMap pins={d.pins} routeColor={d.theme.secondary} className="h-[230px] w-[310px] shrink-0 rounded-[24px] shadow-xl ring-[4px] ring-white/90" markerScale={1.4} />}
+        </div>
         <div>
-          {d.pins.length > 0 && <OutputMap pins={d.pins} routeColor={d.theme.secondary} className="h-[420px] w-[620px] rounded-[36px] ring-[6px] ring-white/80" markerScale={2.5} />}
-          <h2 className="mt-14 font-display text-[112px] font-bold leading-tight">{d.title}</h2>
-          <p className="mt-2 text-[44px] opacity-85">{fmtRange(d.startDate, d.endDate)}</p>
-          <div className="mt-14"><Stats d={d} /></div>
-          <p className="mt-14 text-[40px] font-semibold" style={{ color: d.theme.accent }}>#PassportAI</p>
+          <h2 className="font-display text-[76px] font-bold leading-tight">{d.title}</h2>
+          <p className="mt-1 text-[32px]">{fmtRange(d.startDate, d.endDate)}</p>
+          <div className="mt-8"><Stats d={d} size={0.6} /></div>
+          <p className="mt-8 text-[28px] font-semibold" style={{ color: d.theme.accent }}>#PassportAI</p>
         </div>
       </div>
     </div>

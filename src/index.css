@@ -36,4 +36,4 @@
 
 /* แผนที่บน output (กรอบรูป/การ์ดโซเชียล) ตัวเครดิตแผนที่เล็กลง ไม่บังแผนที่ แต่ยังแสดงตามเงื่อนไข OpenStreetMap */
 .output-map .leaflet-control-attribution { font-size: 7px; line-height: 1.2; padding: 0 3px; }
-.output-map-lg .leaflet-control-attribution { font-size: 18px; line-height: 1.3; padding: 2px 8px; }
+.output-map-lg .leaflet-control-attribution { font-size: 12px; line-height: 1.3; padding: 1px 6px; }
