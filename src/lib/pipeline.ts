@@ -182,7 +182,9 @@ export async function buildPassport(opts: {
     return { day, date, area, summary, narrative: ai?.narrative?.trim() || null, photoCount, spent: amount }
   })
 
+  // หัว Passport ใช้ชื่อทริปที่ผู้ใช้ตั้งเสมอ (AI ตั้งชื่อเองเฉพาะตอนผู้ใช้ไม่ได้ตั้ง)
   const tripTitle =
+    trip.name.trim() ||
     story?.trip_title?.trim() ||
     (cities.length ? cities.slice(0, 3).join(' - ') + (cities.length > 3 ? ' และอื่นๆ' : '') : trip.destination || trip.name)
 

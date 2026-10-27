@@ -30,7 +30,7 @@ export default function PassportView({ data }: { data: PassportData }) {
           <div className="relative grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-center">
             <div>
               <p className="kicker text-white/80">Travel Passport</p>
-              <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">{data.tripTitle}</h1>
+              <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">{data.tripName || data.tripTitle}</h1>
               <p className="mt-3 text-white/85">{fmtRange(data.startDate, data.endDate)} · {data.tripDays} วัน</p>
               <p className="mt-1 text-sm text-white/75">👤 ทริปของ {data.userName} · {data.companion}</p>
             </div>

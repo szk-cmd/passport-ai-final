@@ -16,7 +16,7 @@ export default function PublicPassport() {
   }, [slug])
 
   useEffect(() => {
-    if (row) document.title = `${row.data.tripTitle} · Passport AI`
+    if (row) document.title = `${row.data.tripName || row.data.tripTitle} · Passport AI`
   }, [row])
 
   if (row === undefined) return <FullScreenLoader />

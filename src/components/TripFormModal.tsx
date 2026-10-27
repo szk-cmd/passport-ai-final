@@ -12,10 +12,13 @@ export default function TripFormModal({ open, onClose, trip, onSaved }: { open: 
   })
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  // ผู้ใช้เลือกวันกลับเองแล้ว = ล็อกไว้ เปลี่ยนวันไปทีหลังจะไม่ไปแก้วันกลับ (เว้นแต่วันกลับอยู่ก่อนวันไป)
+  const [endLocked, setEndLocked] = useState(false)
 
   useEffect(() => {
     if (!open) return
     setError('')
+    setEndLocked(Boolean(trip))
     if (trip)
       setForm({
         name: trip.name, destination: trip.destination ?? '', start_date: trip.start_date, end_date: trip.end_date,
@@ -27,6 +30,17 @@ export default function TripFormModal({ open, onClose, trip, onSaved }: { open: 
   }, [open, trip])
 
   const set = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }))
+
+  // เปลี่ยนวันไป (เช่น เลือกวันย้อนหลัง): ยังไม่ได้เลือกวันกลับเอง → เลื่อนวันกลับตามให้จำนวนวันเท่าเดิม
+  // ไม่ให้วันกลับค้างอยู่ที่วันนี้ +3 จนทริปย้อนหลังยาวมาถึงปัจจุบัน
+  function setStart(v: string) {
+    setForm((f) => {
+      if (!v) return { ...f, start_date: v }
+      const length = f.start_date && f.end_date >= f.start_date ? Math.round((Date.parse(f.end_date) - Date.parse(f.start_date)) / 86_400_000) : 3
+      const end = !endLocked ? addDays(v, length) : f.end_date < v ? v : f.end_date
+      return { ...f, start_date: v, end_date: end }
+    })
+  }
 
   async function submit(e: FormEvent) {
     e.preventDefault()
@@ -59,11 +73,11 @@ export default function TripFormModal({ open, onClose, trip, onSaved }: { open: 
           </div>
           <div>
             <label className="label">วันไป *</label>
-            <input className="input" type="date" required value={form.start_date} onChange={(e) => set('start_date')(e.target.value)} />
+            <input className="input" type="date" required value={form.start_date} onChange={(e) => setStart(e.target.value)} />
           </div>
           <div>
             <label className="label">วันกลับ *</label>
-            <input className="input" type="date" required min={form.start_date} value={form.end_date} onChange={(e) => set('end_date')(e.target.value)} />
+            <input className="input" type="date" required min={form.start_date} value={form.end_date} onChange={(e) => { setEndLocked(true); set('end_date')(e.target.value) }} />
           </div>
           <div>
             <label className="label">งบประมาณ (ไม่บังคับ)</label>

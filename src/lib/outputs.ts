@@ -25,7 +25,7 @@ export type OutputData = {
 export function toOutputData(d: PassportData): OutputData {
   const cities = d.cities.length ? d.cities : d.destination ? [d.destination] : []
   return {
-    title: d.tripTitle || d.tripName,
+    title: d.tripName || d.tripTitle, // ชื่อที่ผู้ใช้ตั้ง (Passport เก่าที่ AI ตั้งชื่อให้ก็ใช้ชื่อเดิมของผู้ใช้)
     startDate: d.startDate,
     endDate: d.endDate,
     days: d.tripDays,
